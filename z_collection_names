@@ -1,0 +1,15 @@
+(users)
+
+Course (this collection is for courses the may contain course id ,course template and other)
+
+(Leaderboard)(this stores ranking info sites scores and overall scores ....)
+
+(Tracked_Scores)(this db stores the tracked score of students )
+
+solved_Problem_db(this db contains all the references to all problems solved by user  )
+
+Problem_db(this stores entire problems solved by all the students with href,link,editorials,tags if needed)
+
+
+-----vis changes
+
