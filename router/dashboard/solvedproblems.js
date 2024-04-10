@@ -10,7 +10,8 @@ router.get("/",async (req, res) => {
         .populate('codechef_solved.problem')
         .populate('codeforces_solved.problem')
         .populate('hackerrank_solved.problem')
-        .populate('spoj_solved.problem');
+        .populate('spoj_solved.problem')
+        .populate('leetcode_solved.problem');
 
         if (!solvedproblems) {
             // If student data not found, send an error response

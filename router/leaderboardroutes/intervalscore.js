@@ -1,7 +1,8 @@
 const express = require("express");
+const moment = require("moment");
 const router = express.Router();
 const ProblemsSolvedByStudent = require("../../models/solved_problems");
-const Tracked_Scores = require("../../models/tracked_scores");
+// const dashboard = require("../../models/dashboard");
 // const Users=require("../../models/user");
 
 router.get("/", async (req, res) => {
@@ -11,43 +12,44 @@ router.get("/", async (req, res) => {
         let roll_no = req.roll_no;
         // Convert start_date and end_date strings to Date objects
         const startDate = new Date(start_date);
+        startDate.setHours(0, 0, 0, 0);
         const endDate = new Date(end_date);
         endDate.setHours(23, 59, 59, 999);
-        // console.log(startDate,endDate);
+        // console.log(moment(startDate),moment(endDate));
 
-        // Query the database
+        
         const studentData = await ProblemsSolvedByStudent.findOne({ roll_no });
-        const studentInfo = await Tracked_Scores.findOne({ roll_no});
-        // const user = await Users.findOne({ roll_no: req.params.roll_no });
-        // let leeetcode=await axios.get(`http://localhost:8800/leetcode/${user.leetcode_handle}`);
-        // const lc_data = leeetcode.submissionCalendar;
-
-
-        if (!studentData || !studentInfo ) {
+        if (!studentData) {
             // If student data not found, send an error response
             return res.status(404).json({ message: 'Student data not found' });
         }
 
         // Count solved problems for each section
-        const codechefCount = studentData.codechef_solved.filter(item => item.date >= startDate && item.date <= endDate).length;
-        const codeforcesCount = studentData.codeforces_solved.filter(item => item.date >= startDate && item.date <= endDate).length;
-        const hackerrankCount = studentData.hackerrank_solved.filter(item => item.date >= startDate && item.date <= endDate).length;
-        const spojCount = studentData.spoj_solved.filter(item => item.date >= startDate && item.date <= endDate).length;
-
-        const ccScore = studentInfo.cc_rating>1200? ((codechefCount * 10) + (Math.pow(temp - 1200, 2)) / 30):(codechefCount * 10);
-        const cfScore = studentInfo.cf_rating>1000? ((codeforcesCount * 30) + (Math.pow(temp - 1200, 2)) / 30):(codeforcesCount * 30);
+        const codechefCount = studentData.codechef_solved.filter(item => moment(item.date) >= moment(startDate) && moment(item.date) <= moment(endDate)).length;
+        const codeforcesCount = studentData.codeforces_solved.filter(item => moment(item.date) >= moment(startDate) && moment(item.date) <= moment(endDate)).length;
+        const hackerrankCount = studentData.hackerrank_solved.filter(item => moment(item.date) >= moment(startDate) && moment(item.date) <= moment(endDate)).length;
+        const spojCount = studentData.spoj_solved.filter(item => moment(item.date) >= moment(startDate) && moment(item.date) <= moment(endDate)).length;
+        const leetcodeCount = studentData.leetcode_solved.filter(item => moment(item.date) >= moment(startDate) && moment(item.date) <= moment(endDate)).length;
+       
+        const ccScore = codechefCount * 10;
+        const cfScore = codeforcesCount * 30;
         const hrScore =  hackerrankCount * 10;
         const spojScore = spojCount * 20;
-        // Prepare response
+        const leetScore = leetcodeCount * 50;
+        
+        // response
         const response = {
             codechef_count: codechefCount,
             codeforces_count: codeforcesCount,
             hackerrank_count: hackerrankCount,
             spoj_count: spojCount,
+            leetcode_countount: leetcodeCount,
             ccScore: ccScore,
             cfScore: cfScore,
             hrScore:hrScore,
-            spojScore:spojScore
+            spojScore:spojScore,
+            leetScore:leetScore
+           
         };
 
         // Send response

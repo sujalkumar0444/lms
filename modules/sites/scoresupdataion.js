@@ -268,7 +268,7 @@ class Process_scores{
             let hrnewlysolved=await this.updatehackerrank(hackerrank_last_refreshed,hackerrank_handle);
             console.log("hrnewlysolved",hrnewlysolved[0]);
             console.log("hrnewlysolved length",hrnewlysolved.length);
-             hackerrank_last_refreshed=moment(hrnewlysolved[0]?.crecreated_at).utcOffset('+05:30').format('YYYY-MM-DD HH:mm:ss');
+             hackerrank_last_refreshed=moment(hrnewlysolved[0]?.created_at).utcOffset('+05:30').format('YYYY-MM-DD HH:mm:ss');
              if(hrnewlysolved.length > 0 ){
                 let solved_doc_for_update= await solved_model.findById(_id);
                 solved_doc_for_update.hackerrank_last_refreshed=hackerrank_last_refreshed;
@@ -295,7 +295,7 @@ class Process_scores{
                     let solved_doc_for_update = await solved_model.findById(_id);
                     let problem_data = {
                         problem_name: element.name,
-                        problem_href: element.url,
+                        problem_href:  "https://hackerrank.com"+element.url,
                         site_name: "HackerRank"
                     };
                     let newProblem = await Problems_model.create(problem_data);
@@ -510,10 +510,11 @@ class Process_scores{
 
         let update_response_total=await tracked_scores_data.save();
         update_response_total=await tracked_scores_model.findById(update_response_total._id);
-
-        update_response_total.total_leaderboard_score=update_response_total.lc_leaderboard_score+update_response_total.cc_leaderboard_score+update_response_total.cf_leaderboard_score+update_response_total.spoj_leaderboard_score+update_response_total.hr_leaderboard_score;
         // console.log(update_response_total);
-        await update_response_total.save();
+
+        // update_response_total.total_leaderboard_score=update_response_total.lc_leaderboard_score+update_response_total.cc_leaderboard_score+update_response_total.cf_leaderboard_score+update_response_total.spoj_leaderboard_score+update_response_total.hr_leaderboard_score;
+        // // console.log(update_response_total);
+        // await update_response_total.save();
         // console.log(update_response_total);
         this.leaderboard_update(update_response_total);
         return "score tracker updated";

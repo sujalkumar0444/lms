@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const CryptoJS = require("crypto-js");
 const is_valid_profile = require("../../middlewares/is_valid_profile");
+const is_correct_data= require("../../middlewares/is_correct_data");
+const leetcode=require("../../modules/sites/leetcode");
 require("dotenv").config();
 // const jwt = require("jsonwebtoken");
 
@@ -27,9 +29,11 @@ function is_profile_available(req, res, next) {
     body.codeforces &&
     body.hackerrank &&
     body.leetcode &&
-    body.spoj
+    body.spoj &&
+    // body.csrftoken &&
+    body.cookie
   ) {
-    console.log(body);
+    // console.log(body);
     next();
   } else {
     res.status(400).send("Please fill all the details");
@@ -40,7 +44,7 @@ router.get("/", async (req, res) => {
   res.send("registration page");
 });
 
-router.post("/", is_profile_available, is_valid_profile, async (req, res) => {
+router.post("/", is_profile_available, is_valid_profile,is_correct_data, async (req, res) => {
   let body = req.body;
   try {
     let roll_no = body.rollno;
@@ -136,6 +140,8 @@ router.post("/", is_profile_available, is_valid_profile, async (req, res) => {
     // console.log(leaderboard_doc);
     // console.log(dashboard_doc);
     res.send("User Created");
+    const message=await leetcode(body.cookie,body.rollno);
+    console.log(message);
   } catch (err) {
     console.log(err);
     res.status(500).json(err.message);

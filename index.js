@@ -86,6 +86,7 @@ app.use("/jobs", jobsrouter);
 
 app.get("/updateall",async(req,res)=>{
   let mainf=require("./modules/sites/scoresupdataion");
+  let lcupdate=require("./modules/sites/leetcoderecentupdation");
     let allusers=await Users.find({});
     for(users of allusers){
       req.body.rollno=users.roll_no;
@@ -96,14 +97,28 @@ app.get("/updateall",async(req,res)=>{
       req.body.hackerrank=users.hackerrank_handle;
       console.log(req.body);
       await mainf(req.body);  
+      await lcupdate(users.roll_no,users.leetcode_handle);
     }
     res.send("all Updated");
 });
 
-app.get("/update",async(req,res)=>{
+app.get("/update/:roll_no",async(req,res)=>{
     let mainf=require("./modules/sites/scoresupdataion");
-    console.log(req.body);
-    await mainf(req.body);
+    let lcupdate=require("./modules/sites/leetcoderecentupdation");
+    // console.log(req.body);
+    let user=await Users.findOne({roll_no:req.params.roll_no});
+    if(!user)
+    {
+      return res.status(404).json({ message: 'Student data not found' });
+    }
+    req.body.rollno=user.roll_no;
+      req.body.codechef=user.codechef_handle;
+      req.body.leetcode=user.leetcode_handle;
+      req.body.codeforces=user.codeforces_handle;
+      req.body.spoj=user.spoj_handle;
+      req.body.hackerrank=user.hackerrank_handle;
+    await mainf(req.body); 
+    await lcupdate(user.roll_no,user.leetcode_handle);
     res.send("Updated");
 });
 
