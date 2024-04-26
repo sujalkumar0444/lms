@@ -58,6 +58,9 @@ router.post("/", is_profile_available, is_valid_profile,is_correct_data, async (
       process.env.secretKey
     ).toString();
 
+   
+    // console.log(body.phone_number);
+
     let solved_doc = await solved_model.collection.insertOne({
       roll_no: body.rollno,
       codechef_last_refreshed: new Date(0),
@@ -96,6 +99,7 @@ router.post("/", is_profile_available, is_valid_profile,is_correct_data, async (
       spoj_leaderboard_score: 0,
       total_leaderboard_score: 0,
     });
+    
     let user_doc = await User.collection.insertOne({
       roll_no: body.rollno,
       name: body.name,
@@ -112,7 +116,7 @@ router.post("/", is_profile_available, is_valid_profile,is_correct_data, async (
       credential_ref: tracked_scores_doc.insertedId,
       problems_solved: solved_doc.insertedId,
     });
-    // console.log(body.phone_number);
+    
     let dashboard_doc = await dashboard_model.collection.insertOne({
       roll_no: body.rollno,
       user_name: body.username ,

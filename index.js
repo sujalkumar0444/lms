@@ -19,6 +19,7 @@ const regisrationrouter = require('./router/registration/register');
 const leaderboardsortedrouter = require('./router/leaderboardroutes/sortedboard');
 //added route for fetching course details
 const courserouter=require('./router/courseworkroutes/coureworkrouter');
+const usercourserouter=require('./router/courseworkroutes/usercourses');
 const reorderrouter=require('./router/courseworkroutes/reorder');
 const authenticaterouter = require("./router/registration/authenticate");
 const sendotprouter = require("./router/registration/send_otp");
@@ -34,7 +35,7 @@ const is_valid_user=require("./middlewares/is_valid_user");
 const updateImagerouter=require("./router/dashboard/update_image");
 const upcommingcontestrouter=require("./router/upcomingcontests");
 const jobsrouter=require("./router/fetchjobs");
-
+const dashboardrouter=require('./router/dashboard/dashboard');
 
 // models
 const Users = require('./models/user');
@@ -63,10 +64,11 @@ app.use('/leetcode',lcrouter);
 app.use('/hackerrank',hrrouter);
 app.use('/spoj',spojrouter);
 app.use('/codeforces',codeforcesrouter);
-app.use('/leaderboard',leaderboardsortedrouter);
+app.use('/leaderboard',is_valid_user,leaderboardsortedrouter);
 //added route for coursework
 app.use('/add',courserouter);
 app.use('/fetch/courses',coursesfetchrouter);
+app.use('/user/courses',is_valid_user,usercourserouter);
 app.use('/reorder',reorderrouter);
 app.use("/register", regisrationrouter);
 app.use("/authenticate", authenticaterouter);
@@ -76,6 +78,7 @@ app.use("/uemail",is_valid_user, updateemailrouter);
 app.use("/uphone",is_valid_user, updatephonerouter);
 app.use("/udetails",is_valid_user, updatedetailsrouter);
 app.use("/heatmap",is_valid_user, heatmaprouter);
+app.use("/dashboard",is_valid_user, dashboardrouter);
 app.use("/problems",is_valid_user, solvedproblemsrouter);
 app.use("/interval",is_valid_user, intervalscorerouter);
 app.use("/uimage", updateImagerouter);
