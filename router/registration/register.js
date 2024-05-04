@@ -30,6 +30,7 @@ function is_profile_available(req, res, next) {
     body.hackerrank &&
     body.leetcode &&
     body.spoj &&
+    body.graduation_year &&
     // body.csrftoken &&
     body.cookie
   ) {
@@ -91,6 +92,7 @@ router.post("/", is_profile_available, is_valid_profile,is_correct_data, async (
     });
     let leaderboard_doc = await leaderboard_model.collection.insertOne({
       user_name: body.username,
+      graduation_year:body.graduation_year,
       roll_no: body.rollno,
       lc_leaderboard_score: 0,
       cf_leaderboard_score: 0,
@@ -107,6 +109,7 @@ router.post("/", is_profile_available, is_valid_profile,is_correct_data, async (
       email: body.email,
       username: body.username,
       phone_number: body.phone_number,
+      graduation_year:body.graduation_year,
       codechef_handle: body.codechef,
       leetcode_handle: body.leetcode,
       codeforces_handle: body.codeforces,

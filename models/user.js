@@ -69,7 +69,13 @@ const userSchema = new mongoose.Schema({
     ref: "ProblemsSolvedByStudent",
     required: true,
   },
-   enrolled_courses: [String]// Enrolled courses for the user
+   enrolled_courses: { type : [String],
+     default : [],
+   },
+   graduation_year: {
+    type: Number,
+   required: true
+  }
   }
 );
 

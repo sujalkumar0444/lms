@@ -3,6 +3,7 @@ const mongoose=require("mongoose");
 const leaderboardSchema = new mongoose.Schema({
     // user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     user_name: { type: String},
+    graduation_year: { type: Number, default: 0 },
     roll_no: { type: String,unique:true, required: true },
     lc_leaderboard_score: { type: Number, default: 0 },
     cc_leaderboard_score: { type: Number, default: 0 },
