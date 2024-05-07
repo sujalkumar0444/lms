@@ -28,6 +28,7 @@ const assessmentsSchema = new mongoose.Schema({
           ref: 'Module', // Reference to Module documents
         },
     ], // Array of Module documents
+    graduation_year: { type : [Number], default: [] },
   });
   
   const courseProblemSchema = new mongoose.Schema({
