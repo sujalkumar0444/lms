@@ -24,14 +24,24 @@ router.post('/', async (req, res) => {
         user_data.enrolled_courses.push(courseid);
         await user_data.save();
 
+          let existingProgress = await lessonProgress.findOne({roll_no: req.roll_no});
 
-
-        await lessonProgress.collection.insertOne({
-            roll_no: req.roll_no,
-            courseid:courseid, 
-            completed:[],
-          });
-        
+          if (!existingProgress) {
+            // If no existing progress found, insert a new document
+            await lessonProgress.collection.insertOne({
+                roll_no: req.roll_no,
+                courses: [{
+                    courseid: courseid,
+                    completed: []
+                }]
+            });
+        }
+        else {
+            existingProgress.courses.push({
+                courseid: courseid,
+                completed: []
+            })
+        }
           await courseleaderboard.collection.insertOne({
             user_name: user_data.username,
             graduation_year:user_data.graduation_year, 

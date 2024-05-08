@@ -20,7 +20,8 @@ const leaderboardsortedrouter = require('./router/leaderboardroutes/sortedboard'
 //added route for fetching course details
 const courserouter=require('./router/courseworkroutes/coureworkrouter');
 const courseselectrouter=require('./router/courseworkroutes/courseselect');
-const courseprogressrouter=require('./router/courseworkroutes/addprogress');
+const courseaddprogressrouter=require('./router/courseworkroutes/addprogress');
+const coursefetchprogressrouter=require('./router/courseworkroutes/fetchprogress');
 const courseleaderboardrouter=require('./router/courseworkroutes/courseleaderboardrouter');
 const usercourserouter=require('./router/courseworkroutes/usercourses');
 const reorderrouter=require('./router/courseworkroutes/reorder');
@@ -73,7 +74,8 @@ app.use('/add',courserouter);
 app.use('/fetch/courses',coursesfetchrouter);
 app.use('/user/courses',is_valid_user,usercourserouter);
 app.use('/select/course',is_valid_user,courseselectrouter);
-app.use('/add/progress',is_valid_user,courseprogressrouter);
+app.use('/add/progress',is_valid_user,courseaddprogressrouter);
+app.use('/fetch/progress',is_valid_user,coursefetchprogressrouter);
 app.use('/course/leaderboard',is_valid_user,courseleaderboardrouter);
 app.use('/reorder',reorderrouter);
 app.use("/register", regisrationrouter);

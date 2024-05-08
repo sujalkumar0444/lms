@@ -122,8 +122,10 @@ router.post("/", is_profile_available, is_valid_profile,is_correct_data, async (
     
     let dashboard_doc = await dashboard_model.collection.insertOne({
       roll_no: body.rollno,
+      name:body.name||"",
       user_name: body.username ,
       profile: body.profile || "",
+      resume:body.resume||"",
       email: body.email ,
       phone_number: body.phone_number ,
       dob: body.dob || "",
@@ -139,7 +141,9 @@ router.post("/", is_profile_available, is_valid_profile,is_correct_data, async (
       insta_handle: body.insta_handle || "",
       linkedin_handle: body.linkedin_handle||  "",
       github: body.github || "",
-      daily_solved_problem_count :[]
+      daily_solved_problem_count :[],
+      certificates:[]
+
     });
     // console.log(user_doc);
     // console.log(solved_doc);

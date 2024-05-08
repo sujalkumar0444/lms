@@ -6,12 +6,20 @@ const dashboardSchema = new mongoose.Schema({
     unique: true,
     required: true,
   },
+  name: {
+    type: String,
+    required: true,
+  },
   user_name: {
     type: String,
     unique: true,
     required: true,
   },
   profile: {
+    type: String,
+    // required: true,
+  },
+  resume: {
     type: String,
     // required: true,
   },
@@ -75,7 +83,8 @@ const dashboardSchema = new mongoose.Schema({
     spoj_total_solved : {type : Number},
     leetcode_solved_today : {type : Number},
     leetcode_total_solved : {type : Number},
-  },]
+  },],
+  certificates: [{ type: String, ref: "certificate" }],
   
 });
 
