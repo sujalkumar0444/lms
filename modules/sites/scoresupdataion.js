@@ -431,7 +431,6 @@ class Process_scores{
             // console.log(today);
             // console.log(yesterday);
             // console.log(dashboard_data.daily_solved_problem_count[last_index].date);
-            // Taking yesterday as we will be updating after 12
             if (moment(dashboard_data.daily_solved_problem_count[last_index].date).isAfter(today, 'day')) {
 
                 dashboard_data.daily_solved_problem_count[last_index].codechef_solved_today=dashboard_data.daily_solved_problem_count[last_index].codechef_solved_today+solved_data[0].codechef_solved.length-dashboard_data.daily_solved_problem_count[last_index].codechef_total_solved; 
@@ -444,7 +443,7 @@ class Process_scores{
                 dashboard_data.daily_solved_problem_count[last_index].spoj_total_solved=parseInt(spoj_data.Problems_solved);
                 dashboard_data.daily_solved_problem_count[last_index].leetcode_solved_today= dashboard_data.daily_solved_problem_count[last_index].leetcode_solved_today+leetcode_data.totalSolved-dashboard_data.daily_solved_problem_count[last_index].leetcode_total_solved; 
                 dashboard_data.daily_solved_problem_count[last_index].leetcode_total_solved=leetcode_data.totalSolved; 
-                console.log("here");
+                // console.log("here");
             }
             else if(moment(dashboard_data.daily_solved_problem_count[last_index].date).isSame(today, 'day'))
             {

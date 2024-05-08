@@ -12,8 +12,6 @@ const ProblemsSolvedByStudentSchema = new Schema({
     hackerrank_solved: [{ problem: { type: Schema.Types.ObjectId, ref: 'Problem' }, date: { type: Date } }],
     spoj_last_refreshed: { type: Date, default: new Date(0) },
     spoj_solved: [{ problem: { type: Schema.Types.ObjectId, ref: 'Problem' }, date: { type: Date } }],
-    leetcode_last_refreshed: { type: Date, default: new Date(0) },
-    leetcode_solved: [{ problem: { type: Schema.Types.ObjectId, ref: 'Problem' }, date: { type: Date } }],
 });
 
 

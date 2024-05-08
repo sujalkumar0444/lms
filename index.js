@@ -97,7 +97,6 @@ app.use("/jobs", jobsrouter);
 
 app.get("/updateall",async(req,res)=>{
   let mainf=require("./modules/sites/scoresupdataion");
-  let lcupdate=require("./modules/sites/leetcoderecentupdation");
     let allusers=await Users.find({});
     for(users of allusers){
       req.body.rollno=users.roll_no;
@@ -108,14 +107,12 @@ app.get("/updateall",async(req,res)=>{
       req.body.hackerrank=users.hackerrank_handle;
       console.log(req.body);
       await mainf(req.body);  
-      await lcupdate(users.roll_no,users.leetcode_handle);
     }
     res.send("all Updated");
 });
 
 app.get("/update/:roll_no",async(req,res)=>{
     let mainf=require("./modules/sites/scoresupdataion");
-    let lcupdate=require("./modules/sites/leetcoderecentupdation");
     // console.log(req.body);
     let user=await Users.findOne({roll_no:req.params.roll_no});
     if(!user)
@@ -129,7 +126,6 @@ app.get("/update/:roll_no",async(req,res)=>{
       req.body.spoj=user.spoj_handle;
       req.body.hackerrank=user.hackerrank_handle;
     await mainf(req.body); 
-    await lcupdate(user.roll_no,user.leetcode_handle);
     res.send("Updated");
 });
 
