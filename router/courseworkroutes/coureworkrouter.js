@@ -4,13 +4,15 @@ const { Lesson, CourseProblem, Assessments, Module, Course } = require("../../mo
 // Endpoint to add content
 router.post('/content', async (req, res) => {
     try {
+        console.log(req.body);
         const current_module = await Module.findById(req.body.module_id);
+        console.log(current_module);
         let newLesson = await Lesson.create({
             lesson_no: (current_module.lessons.length || 0) + 1,
             contentype: 'text-material',
-            lesson_title: req.body.lesson_title,
+            lesson_title: req.body.title,
             lesson_points: 0,
-            text_content: req.body.text_content,
+            text_content: req.body.content,
         });
 
         await newLesson.save();
@@ -42,7 +44,7 @@ router.post('/problem', async (req, res) => {
         let newLesson = await Lesson.create({
             lesson_no: (current_module.lessons.length || 0) + 1,
             contentype: 'problem',
-            lesson_title: req.body.lesson_title,
+            lesson_title: req.body.problem_title,
             lesson_points: req.body.problem_points,
             problem_id: problems_data._id
         });
@@ -83,6 +85,7 @@ router.post('/course', async (req, res) => {
 
 // Endpoint to add a module
 router.post('/module', async (req, res) => {
+    console.log("adding modules")
     try {
         const current_course = await Course.findOne({ courseid: req.body.course_id });
 

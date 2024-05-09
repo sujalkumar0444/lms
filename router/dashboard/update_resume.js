@@ -14,11 +14,11 @@ let uploader = multer({
   },
 });
 
-const uploadcontroller = require("../../controllers/uploadfiles");
+const uploadcontroller = require("../../controllers/uploadresume");
 
 router.get("/", async (req, res) => {
   try {
-    const user = await Dashboard.findOne({ roll_no: req.rollno });
+    const user = await Dashboard.findOne({ roll_no: req.roll_no });
     if (!user.resume) {
       return res
         .status(404)

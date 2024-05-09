@@ -17,11 +17,11 @@ let uploader = multer({
   },
 });
 
-const uploadcontroller = require("../../controllers/uploadCertificates");
+const uploadcontroller = require("../../controllers/uploadcertificates");
 
 router.get("/", async (req, res) => {
   try {
-    const user = await Dashboard.findOne({ roll_no: req.rollno });
+    const user = await Dashboard.findOne({ roll_no: req.roll_no });
     if (user.certificates.length == 0) {
       return res
         .status(404)

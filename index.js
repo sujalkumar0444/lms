@@ -73,7 +73,7 @@ app.use('/codeforces',codeforcesrouter);
 app.use('/leaderboard',is_valid_user,leaderboardsortedrouter);
 //added route for coursework
 app.use('/add',courserouter);
-app.use('/fetch/courses',coursesfetchrouter);
+app.use('/fetch/course',coursesfetchrouter);
 app.use('/user/courses',is_valid_user,usercourserouter);
 app.use('/select/course',is_valid_user,courseselectrouter);
 app.use('/add/progress',is_valid_user,courseaddprogressrouter);
@@ -84,18 +84,18 @@ app.use("/register", regisrationrouter);
 app.use("/authenticate", authenticaterouter);
 app.use("/sendotp", sendotprouter);
 app.use("/getcreds", getcredentialsrouter);
-app.use("/uemail",is_valid_user, updateemailrouter);
-app.use("/uphone",is_valid_user, updatephonerouter);
-app.use("/udetails",is_valid_user, updatedetailsrouter);
+app.use("/update/email",is_valid_user, updateemailrouter);
+app.use("/update/phone",is_valid_user, updatephonerouter);
+app.use("/update/details",is_valid_user, updatedetailsrouter);
 app.use("/heatmap",is_valid_user, heatmaprouter);
 app.use("/dashboard",is_valid_user, dashboardrouter);
 app.use("/problems",is_valid_user, solvedproblemsrouter);
-app.use("/interval",is_valid_user, intervalscorerouter);
-app.use("/uimage", updateImagerouter);
-app.use("/uresume", is_valid_user, uploadresumerouter);
-app.use("/ucertificate", is_valid_user, uploadCertificatesRouter);
-app.use("/upcomming-contests", upcommingcontestrouter);
-app.use("/jobs", jobsrouter);
+app.use("/interval/score",is_valid_user, intervalscorerouter);
+app.use("/update/image",is_valid_user,  updateImagerouter);
+app.use("/update/resume", is_valid_user, uploadresumerouter);
+app.use("/upload/certificate", is_valid_user, uploadCertificatesRouter);
+app.use("/contests",is_valid_user, upcommingcontestrouter);
+app.use("/jobs",is_valid_user, jobsrouter);
 
 
 

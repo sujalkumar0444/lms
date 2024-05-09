@@ -33,7 +33,7 @@ router.post("/", async (req, res) => {
 
     res
       .status(200)
-      .json({ success: true, message: "Phone updated successfully" });
+      .json({ success: true, message: "Email updated successfully" });
   } catch (error) {
     console.error("Error updating email:", error);
     res.status(500).json({ success: false, error: error.message });

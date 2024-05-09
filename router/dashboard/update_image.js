@@ -8,11 +8,11 @@ let uploader = multer({
   limits: { fileSize: 1000000 }, // 1 MB in bytes
 });
 
-const uploadcontroller = require("../../controllers/uploadimages");
+const uploadcontroller = require("../../controllers/uploadimage");
 const Dashboard = require("../../models/dashboard");
 router.get("/", async (req, res) => {
   try {
-    const user = await Dashboard.findOne({ roll_no: req.rollno });
+    const user = await Dashboard.findOne({ roll_no: req.roll_no });
     if (!user.profile) {
       return res
         .status(404)

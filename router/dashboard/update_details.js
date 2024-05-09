@@ -9,7 +9,7 @@ router.get("/", (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const rollno = req.rollno;
+  const rollno = req.roll_no;
 
   try {
     const updateFields = {
@@ -47,7 +47,7 @@ router.post("/", async (req, res) => {
       { roll_no: rollno },
       updateFields,
       { new: true }
-    );
+    ).select('-daily_solved_problem_count');
 
     if (!updatedUser) {
       throw new Error("User not found in database");

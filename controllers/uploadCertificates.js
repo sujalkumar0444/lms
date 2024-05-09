@@ -2,7 +2,7 @@ const Dashboard = require("../models/dashboard");
 const Upload = require("../helpers/upload_certificates");
 
 const uploadFile = async (req, res) => {
-  const rollno = req.rollno;
+  const rollno = req.roll_no;
   console.log("Rollno " + rollno);
 
   try {
@@ -23,7 +23,7 @@ const uploadFile = async (req, res) => {
     res.send({
       success: true,
       msg: "PDF Uploaded Successfully!",
-      data: user,
+      data: user.certificates,
     });
   } catch (error) {
     console.log(error);
