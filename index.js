@@ -31,7 +31,9 @@ const getcredentialsrouter = require("./router/registration/get_creds");
 const updatephonerouter = require("./router/dashboard/update_phone");
 const updateemailrouter = require("./router/dashboard/update_email");
 const updatedetailsrouter = require("./router/dashboard/update_details");
+const uploadresumerouter = require("./router/dashboard/update_resume");
 const coursesfetchrouter=require('./router/courseworkroutes/coursefetchrouter');
+const uploadCertificatesRouter = require("./router/dashboard/upload_certificates");
 const heatmaprouter=require('./router/dashboard/heatmap');
 const solvedproblemsrouter=require('./router/dashboard/solvedproblems');
 const intervalscorerouter=require('./router/leaderboardroutes/intervalscore');
@@ -90,6 +92,8 @@ app.use("/dashboard",is_valid_user, dashboardrouter);
 app.use("/problems",is_valid_user, solvedproblemsrouter);
 app.use("/interval",is_valid_user, intervalscorerouter);
 app.use("/uimage", updateImagerouter);
+app.use("/uresume", is_valid_user, uploadresumerouter);
+app.use("/ucertificate", is_valid_user, uploadCertificatesRouter);
 app.use("/upcomming-contests", upcommingcontestrouter);
 app.use("/jobs", jobsrouter);
 
