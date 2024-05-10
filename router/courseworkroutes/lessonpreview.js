@@ -4,7 +4,7 @@ const { Lesson } = require("../../models/course_work");
 router.get('/:lessonid', async (req, res) => {
     try {
         let lessonid = req.params.lessonid;
-        let lesson = await Lesson.findOne({ _id: lessonid }).select('-_id -lesson_no -contentype -lesson_title').populate([
+        let lesson = await Lesson.findOne({ _id: lessonid }).select('-_id -lesson_no -contentype').populate([
             { 
                 path: 'problem_id', 
                 model: 'CourseProblem', 
