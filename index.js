@@ -18,6 +18,7 @@ const codeforcesrouter = require('./router/codeforcesscore');
 const regisrationrouter = require('./router/registration/register');
 const leaderboardsortedrouter = require('./router/leaderboardroutes/sortedboard');
 //added route for fetching course details
+const lessonpreviewrouter=require('./router/courseworkroutes/lessonpreview');
 const courserouter=require('./router/courseworkroutes/coureworkrouter');
 const courseselectrouter=require('./router/courseworkroutes/courseselect');
 const courseaddprogressrouter=require('./router/courseworkroutes/addprogress');
@@ -74,6 +75,7 @@ app.use('/leaderboard',is_valid_user,leaderboardsortedrouter);
 //added route for coursework
 app.use('/add',courserouter);
 app.use('/fetch/course',coursesfetchrouter);
+app.use('/lesson/preview',lessonpreviewrouter);
 app.use('/user/courses',is_valid_user,usercourserouter);
 app.use('/select/course',is_valid_user,courseselectrouter);
 app.use('/add/progress',is_valid_user,courseaddprogressrouter);
