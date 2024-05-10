@@ -47,9 +47,22 @@ router.get("/:courseid", async (req, res) => {
             path: 'modules',
             populate: {
                 path: 'lessons',
+                select: '-text_content', // Exclude text_content field from populated Lesson documents
                 populate: [
-                    { path: 'problem_id', model: 'CourseProblem' }, // Populate problem_id if exists
-                    { path: 'assessment_ref', model: 'Assessments', populate: { path: 'problems.problem_ref', model: 'CourseProblem' } } // Populate assessment_ref if exists, and then populate problem_ref within problems array
+                    { 
+                        path: 'problem_id', 
+                        model: 'CourseProblem',
+                        select: '-problem_description -sample_test_cases -hidden_test_cases' // Exclude certain fields from CourseProblem
+                    }, // Populate problem_id if exists
+                    { 
+                        path: 'assessment_ref', 
+                        model: 'Assessments', 
+                        populate: { 
+                            path: 'problems.problem_ref', 
+                            model: 'CourseProblem',
+                            select: '-problem_description -sample_test_cases -hidden_test_cases' // Exclude certain fields from CourseProblem
+                        } 
+                    } // Populate assessment_ref if exists, and then populate problem_ref within problems array
                 ]
             }
         });
