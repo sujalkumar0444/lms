@@ -1,11 +1,13 @@
 const router = require('express').Router();
-const { Lesson , CourseProblem ,Assessments}=require("../../models/course_work");
-router.post('/:lessonid', async (req, res) => {
+const { Module ,Lesson , CourseProblem ,Assessments}=require("../../models/course_work");
+router.post('/', async (req, res) => {
     try {
-        const lessonid = req.params.lessonid;
+        const lessonid = req.body.lessonid;
+        const moduleid = req.body.moduleid;
 
 
         const lesson = await Lesson.findOne({ _id: lessonid });
+        
 
         if (!lesson) {
             return res.status(404).json({ message: 'Lesson not found' });
@@ -19,6 +21,10 @@ router.post('/:lessonid', async (req, res) => {
         if(problem_id)
             {
         await CourseProblem.deleteOne({ _id: problem_id });
+        const module = await Module.findOne({ _id: moduleid });
+        module.module_total_score=module.module_total_score-lesson.lesson_points;
+        await module.save();
+
          }
          if(assessment_ref)
             {
