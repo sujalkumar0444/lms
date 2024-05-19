@@ -9,9 +9,11 @@ router.get("/", async (req, res) => {
         if (!dashboard_data) {
             return res.status(404).json({ success: false, message: "Dashboard data not found" });
         }
-
-        const startDate = new Date(req.body.start_date);
-        const endDate = new Date(req.body.end_date);
+        if (!req.query.start_date || !req.query.end_date) {
+            return res.status(404).json({ success: false, message: "Enter the query parameters" });
+        }
+        const startDate = new Date(req.query.start_date);
+        const endDate = new Date(req.query.end_date);
         endDate.setUTCHours(23, 59, 59, 999);
 
         // Initialize object to store individual data

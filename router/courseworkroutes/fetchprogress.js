@@ -1,9 +1,9 @@
 const router = require('express').Router();
 const { Course }=require("../../models/course_work");
 const lessonProgress=require('../../models/course_progress');
-router.get('/', async (req, res) => {
+router.get('/:courseid', async (req, res) => {
     try {
-        const courseid = req.body.courseid;
+        const courseid = req.params.courseid;
         const course_data = await Course.findOne({ courseid: courseid });
         if (!course_data) {
             // If student data not found, send an error response

@@ -41,6 +41,7 @@ router.post('/', async (req, res) => {
                 courseid: courseid,
                 completed: []
             })
+            await existingProgress.save();
         }
           await courseleaderboard.collection.insertOne({
             user_name: user_data.username,

@@ -3,8 +3,8 @@ let courseleaderboard=require("../../models/course_leaderboard");
 const { Course }=require("../../models/course_work");
 let user_model=require("../../models/user");
 
-router.get("/",async(req,res)=>{
-    let data=await courseleaderboard.find({courseid:req.body.courseid}).sort({ score:-1 });
+router.get("/:courseid",async(req,res)=>{
+    let data=await courseleaderboard.find({courseid:req.params.courseid}).sort({ score:-1 });
     let rank=1;
     // console.log(data);
     let roll_no = req.roll_no;
@@ -13,13 +13,13 @@ router.get("/",async(req,res)=>{
         // If student data not found, send an error response
         return res.status(404).json({ message: 'Student data not found' });
     }
-    const course_data = await Course.findOne({ courseid: req.body.courseid });
+    const course_data = await Course.findOne({ courseid: req.params.courseid });
     if (!course_data) {
         // If student data not found, send an error response
         return res.status(404).json({ message: 'Course not found' });
     }
 
-    if(!studentData.enrolled_courses.includes(req.body.courseid))
+    if(!studentData.enrolled_courses.includes(req.params.courseid))
         {
             return res.status(500).json({ message: 'User not enrolled' });
         }

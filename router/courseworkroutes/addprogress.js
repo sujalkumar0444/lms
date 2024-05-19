@@ -27,10 +27,17 @@ router.post('/', async (req, res) => {
        
                 let moduleIndex = progress.courses[courseIndex].completed.findIndex(module => module.moduleid === moduleid);
             if (moduleIndex !== -1) {
-            
+
+                let lessonIndex = progress.courses[courseIndex].completed[moduleIndex].lessons.findIndex(lesson => lesson.lessonid === lessonid);
+            if (lessonIndex !== -1) {
+                return res.status(500).json({ message: 'Already updated' });
+            }
+            else
+            {
                 progress.courses[courseIndex].completed[moduleIndex].lessons.push({ lessonid : lessonid });
             
                 await progress.save();
+            }
             } else {
                 progress.courses[courseIndex].completed.push({
                     moduleid: moduleid,

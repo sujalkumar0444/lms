@@ -16,6 +16,7 @@ router.get('/', async (req, res) => {
         const ret = courses.map(course => ({
             courseid: course.courseid,
             title: course.title,
+            coursetags: course.coursetags,
             description: course.description,
             modules_count: course.modules.length
         }));
