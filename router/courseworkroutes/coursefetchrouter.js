@@ -1,8 +1,9 @@
-const router =require('express').Router();
 
-let {Course,Lesson,Module,Assessments,CourseProblem}=require('../../models/course_work');
+const router = require('express').Router();
 
-router.get('/',(req,res)=>{
+let { Course, Lesson, Module, Assessments, CourseProblem } = require('../../models/course_work');
+
+router.get('/', (req, res) => {
     res.send('Courses');
 });
 
@@ -41,7 +42,7 @@ router.get('/all', async (req, res) => {
 // });
 router.get("/:courseid", async (req, res) => {
     let courseid = req.params.courseid;
-    let ret={};
+    let ret = {};
     try {
         let course = await Course.findOne({ courseid: courseid }).populate({
             path: 'modules',
@@ -66,10 +67,11 @@ router.get("/:courseid", async (req, res) => {
                 ]
             }
         });
+
         if (course) {
-            ret.courseid=course.courseid;
-        ret.modules=course.modules;
-        res.json(ret);
+            ret.courseid = course.courseid;
+            ret.modules = course.modules;
+            res.json(ret);
             // res.json(course);
         } else {
             res.status(404).json({ message: 'Course not found' });
@@ -81,4 +83,4 @@ router.get("/:courseid", async (req, res) => {
 });
 
 
-module.exports=router;  
+module.exports = router;
