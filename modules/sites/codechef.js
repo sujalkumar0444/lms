@@ -32,8 +32,8 @@ class Codechefclass {
             // get all the links in the problems solved section
             const linksArray = [];
             const sett=new Set();
-            const linkarr = document.querySelector('section.rating-data-section:nth-child(7)').querySelectorAll('p a')
-            linkarr.forEach(link => {
+            const linkarr = document.querySelector('section.rating-data-section:nth-child(7)')?.querySelectorAll('p a')
+            linkarr?linkarr.forEach(link => {
             const href = link.getAttribute('href');
             const content = link.childNodes[0].data;
             // console.log(href);
@@ -44,7 +44,7 @@ class Codechefclass {
                 sett.add(check);
                 linksArray.push({ href, content });
             }
-            });
+            }):null;
     
             // response data 
             return({
@@ -58,7 +58,11 @@ class Codechefclass {
                 globalRank: parseInt(document.querySelector('.rating-ranks').children[0].children[0].children[0].children[0].innerHTML),
                 countryRank: parseInt(document.querySelector('.rating-ranks').children[0].children[1].children[0].children[0].innerHTML),
                 stars: document.querySelector('.rating').textContent || "unrated",
-                problemsSolved: linksArray.length,
+                problemsSolved: parseInt(document.querySelector("body > main > div > div > div > div > div > section.rating-data-section.problems-solved > h3:last-child")?.textContent.slice(document.querySelector("body > main > div > div > div > div > div > section.rating-data-section.problems-solved > h3:last-child")?.textContent.indexOf(": ") + 2), 10),
+                
+               
+
+                
             });
         } catch (err) {
             return({ success: false, error: err });

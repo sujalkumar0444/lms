@@ -83,6 +83,9 @@ const dashboardSchema = new mongoose.Schema({
     spoj_total_solved : {type : Number},
     leetcode_solved_today : {type : Number},
     leetcode_total_solved : {type : Number},
+    leetcode_rating : {type : Number},
+    codeforces_rating : {type : Number},
+    codechef_rating : {type : Number},
   },],
   certificates: [{ type: String, ref: "certificate" }],
   
