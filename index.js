@@ -48,6 +48,7 @@ const updateImagerouter=require("./router/dashboard/update_image");
 const upcommingcontestrouter=require("./router/upcomingcontests");
 const jobsrouter=require("./router/fetchjobs");
 const dashboardrouter=require('./router/dashboard/dashboard');
+const judgerouter=require('./router/judge/judgerouter');
 
 // models
 const Users = require('./models/user');
@@ -108,7 +109,7 @@ app.use("/update/resume", is_valid_user, uploadresumerouter);
 app.use("/upload/certificate", is_valid_user, uploadCertificatesRouter);
 app.use("/contests",is_valid_user, upcommingcontestrouter);
 app.use("/jobs",is_valid_user, jobsrouter);
-
+app.use("/judge",judgerouter);
 
 
 app.get("/updateall",async(req,res)=>{

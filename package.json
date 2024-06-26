@@ -20,7 +20,7 @@
     "express": "^4.18.3",
     "jsdom": "^24.0.0",
     "jsonwebtoken": "^9.0.2",
-    "linkedin-jobs-api": "^1.0.1",
+    "linkedin-jobs-api": "^1.0.3",
     "moment": "^2.30.1",
     "moment-timezone": "^0.5.45",
     "mongodb": "^6.5.0",

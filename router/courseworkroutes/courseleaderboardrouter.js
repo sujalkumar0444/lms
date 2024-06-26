@@ -4,6 +4,7 @@ const { Course }=require("../../models/course_work");
 let user_model=require("../../models/user");
 
 router.get("/:courseid",async(req,res)=>{
+    console.log(req.params.courseid);
     let data=await courseleaderboard.find({courseid:req.params.courseid}).sort({ score:-1 });
     let rank=1;
     // console.log(data);

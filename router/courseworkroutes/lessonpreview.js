@@ -16,6 +16,7 @@ router.get('/:lessonid', async (req, res) => {
              let problem = await CourseProblem.findOne({ _id: lesson.problem_id });
              result.lesson_points=lesson.lesson_points;
              result.problem_id={};
+             result.problem_id._id=problem._id;
              result.problem_id.problem_title=problem.problem_title;
              result.problem_id.problem_description=problem.problem_description;
              result.problem_id.sample_test_cases = problem.sample_test_cases.map(testCase => {
