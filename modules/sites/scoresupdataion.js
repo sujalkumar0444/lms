@@ -382,9 +382,9 @@ class Process_scores{
 
         let tracked_scores_data=await tracked_scores_model.find({roll_no:rollno});
         tracked_scores_data=await tracked_scores_model.findById(tracked_scores_data[0]._id);
+        
         let dashboard_data=await dashboard.findOne({roll_no:rollno});
-
-        let leetcoderating
+        let leetcoderating;
         try {
             const response = await axios.post('https://leetcode.com/graphql', {
                 query: `
@@ -437,38 +437,38 @@ class Process_scores{
             // console.log(dashboard_data.daily_solved_problem_count[last_index].date);
             if (moment(dashboard_data.daily_solved_problem_count[last_index].date).isAfter(today, 'day')) {
 
-                dashboard_data.daily_solved_problem_count[last_index].codechef_solved_today=dashboard_data.daily_solved_problem_count[last_index].codechef_solved_today+solved_data[0].codechef_solved.length-dashboard_data.daily_solved_problem_count[last_index].codechef_total_solved; 
-                dashboard_data.daily_solved_problem_count[last_index].codechef_total_solved=solved_data[0].codechef_solved.length;
-                dashboard_data.daily_solved_problem_count[last_index].hackerrank_solved_today= dashboard_data.daily_solved_problem_count[last_index].hackerrank_solved_today+solved_data[0].hackerrank_solved.length-dashboard_data.daily_solved_problem_count[last_index].hackerrank_total_solved; 
-                dashboard_data.daily_solved_problem_count[last_index].hackerrank_total_solved=solved_data[0].hackerrank_solved.length; 
-                dashboard_data.daily_solved_problem_count[last_index].codeforces_solved_today= dashboard_data.daily_solved_problem_count[last_index].codeforces_solved_today+codeforces_data.problems_solved-dashboard_data.daily_solved_problem_count[last_index].codeforces_total_solved;
-                dashboard_data.daily_solved_problem_count[last_index].codeforces_total_solved=codeforces_data.problems_solved;
-                dashboard_data.daily_solved_problem_count[last_index].spoj_solved_today= dashboard_data.daily_solved_problem_count[last_index].spoj_solved_today+parseInt(spoj_data.Problems_solved)-dashboard_data.daily_solved_problem_count[last_index].spoj_total_solved;
-                dashboard_data.daily_solved_problem_count[last_index].spoj_total_solved=parseInt(spoj_data.Problems_solved);
-                dashboard_data.daily_solved_problem_count[last_index].leetcode_solved_today= dashboard_data.daily_solved_problem_count[last_index].leetcode_solved_today+leetcode_data.totalSolved-dashboard_data.daily_solved_problem_count[last_index].leetcode_total_solved; 
-                dashboard_data.daily_solved_problem_count[last_index].leetcode_total_solved=leetcode_data.totalSolved; 
-                dashboard_data.daily_solved_problem_count[last_index].leetcode_rating=parseInt(leetcoderating)? parseInt(leetcoderating):0;
-                dashboard_data.daily_solved_problem_count[last_index].codechef_rating=parseInt(codechef_data.currentRating)? parseInt(codechef_data.currentRating):0;
-                dashboard_data.daily_solved_problem_count[last_index].codeforces_rating=parseInt(codeforces_data.rating)? parseInt(codeforces_data.rating):0;
+        dashboard_data.daily_solved_problem_count[last_index].codechef_total_solved=solved_data[0].codechef_solved.length;
+        dashboard_data.daily_solved_problem_count[last_index].codechef_solved_today=dashboard_data.daily_solved_problem_count[last_index].codechef_solved_today+solved_data[0].codechef_solved.length-dashboard_data.daily_solved_problem_count[last_index].codechef_total_solved; 
+        dashboard_data.daily_solved_problem_count[last_index].hackerrank_solved_today= dashboard_data.daily_solved_problem_count[last_index].hackerrank_solved_today+solved_data[0].hackerrank_solved.length-dashboard_data.daily_solved_problem_count[last_index].hackerrank_total_solved; 
+        dashboard_data.daily_solved_problem_count[last_index].hackerrank_total_solved=solved_data[0].hackerrank_solved.length; 
+        dashboard_data.daily_solved_problem_count[last_index].codeforces_solved_today= parseInt(dashboard_data.daily_solved_problem_count[last_index].codeforces_solved_today)+parseInt(codeforces_data.problems_solved)-parseInt(dashboard_data.daily_solved_problem_count[last_index].codeforces_total_solved);
+        dashboard_data.daily_solved_problem_count[last_index].codeforces_total_solved=codeforces_data.problems_solved;
+        dashboard_data.daily_solved_problem_count[last_index].spoj_solved_today= dashboard_data.daily_solved_problem_count[last_index].spoj_solved_today+parseInt(spoj_data.Problems_solved)-dashboard_data.daily_solved_problem_count[last_index].spoj_total_solved;
+        dashboard_data.daily_solved_problem_count[last_index].spoj_total_solved=parseInt(spoj_data.Problems_solved);
+        dashboard_data.daily_solved_problem_count[last_index].leetcode_solved_today= dashboard_data.daily_solved_problem_count[last_index].leetcode_solved_today+leetcode_data.totalSolved-dashboard_data.daily_solved_problem_count[last_index].leetcode_total_solved; 
+        dashboard_data.daily_solved_problem_count[last_index].leetcode_total_solved=leetcode_data.totalSolved; 
+        dashboard_data.daily_solved_problem_count[last_index].leetcode_rating=parseInt(leetcoderating)? parseInt(leetcoderating):0;
+        dashboard_data.daily_solved_problem_count[last_index].codechef_rating=parseInt(codechef_data.currentRating)? parseInt(codechef_data.currentRating):0;
+        dashboard_data.daily_solved_problem_count[last_index].codeforces_rating=parseInt(codeforces_data.rating)? parseInt(codeforces_data.rating):0;
                 // console.log("here");
             }
             else if(moment(dashboard_data.daily_solved_problem_count[last_index].date).isSame(today, 'day'))
             {
                 // if(moment(dashboard_data.daily_solved_problem_count[last_index].date).isSame(today, 'day'))
                 // {
-                    dashboard_data.daily_solved_problem_count[last_index].codechef_solved_today=dashboard_data.daily_solved_problem_count[last_index].codechef_solved_today+solved_data[0].codechef_solved.length-dashboard_data.daily_solved_problem_count[last_index].codechef_total_solved; 
-                    dashboard_data.daily_solved_problem_count[last_index].codechef_total_solved=solved_data[0].codechef_solved.length;
-                    dashboard_data.daily_solved_problem_count[last_index].hackerrank_solved_today= dashboard_data.daily_solved_problem_count[last_index].hackerrank_solved_today+solved_data[0].hackerrank_solved.length-dashboard_data.daily_solved_problem_count[last_index].hackerrank_total_solved; 
-                    dashboard_data.daily_solved_problem_count[last_index].hackerrank_total_solved=solved_data[0].hackerrank_solved.length; 
-                    dashboard_data.daily_solved_problem_count[last_index].codeforces_solved_today= dashboard_data.daily_solved_problem_count[last_index].codeforces_solved_today+codeforces_data.problems_solved-dashboard_data.daily_solved_problem_count[last_index].codeforces_total_solved;
-                    dashboard_data.daily_solved_problem_count[last_index].codeforces_total_solved=codeforces_data.problems_solved;
-                    dashboard_data.daily_solved_problem_count[last_index].spoj_solved_today= dashboard_data.daily_solved_problem_count[last_index].spoj_solved_today+parseInt(spoj_data.Problems_solved)-dashboard_data.daily_solved_problem_count[last_index].spoj_total_solved;
-                    dashboard_data.daily_solved_problem_count[last_index].spoj_total_solved=parseInt(spoj_data.Problems_solved);
-                    dashboard_data.daily_solved_problem_count[last_index].leetcode_solved_today= dashboard_data.daily_solved_problem_count[last_index].leetcode_solved_today+leetcode_data.totalSolved-dashboard_data.daily_solved_problem_count[last_index].leetcode_total_solved; 
-                    dashboard_data.daily_solved_problem_count[last_index].leetcode_total_solved=leetcode_data.totalSolved; 
-                    dashboard_data.daily_solved_problem_count[last_index].leetcode_rating=parseInt(leetcoderating)? parseInt(leetcoderating):0;
-                    dashboard_data.daily_solved_problem_count[last_index].codechef_rating=parseInt(codechef_data.currentRating)? parseInt(codechef_data.currentRating):0;
-                    dashboard_data.daily_solved_problem_count[last_index].codeforces_rating=parseInt(codeforces_data.rating)? parseInt(codeforces_data.rating):0;
+        dashboard_data.daily_solved_problem_count[last_index].codechef_solved_today=dashboard_data.daily_solved_problem_count[last_index].codechef_solved_today+solved_data[0].codechef_solved.length-dashboard_data.daily_solved_problem_count[last_index].codechef_total_solved; 
+        dashboard_data.daily_solved_problem_count[last_index].codechef_total_solved=solved_data[0].codechef_solved.length;
+        dashboard_data.daily_solved_problem_count[last_index].hackerrank_solved_today= dashboard_data.daily_solved_problem_count[last_index].hackerrank_solved_today+solved_data[0].hackerrank_solved.length-dashboard_data.daily_solved_problem_count[last_index].hackerrank_total_solved; 
+        dashboard_data.daily_solved_problem_count[last_index].hackerrank_total_solved=solved_data[0].hackerrank_solved.length; 
+        dashboard_data.daily_solved_problem_count[last_index].codeforces_solved_today= parseInt(dashboard_data.daily_solved_problem_count[last_index].codeforces_solved_today)+parseInt(codeforces_data.problems_solved)-parseInt(dashboard_data.daily_solved_problem_count[last_index].codeforces_total_solved);
+        dashboard_data.daily_solved_problem_count[last_index].codeforces_total_solved=codeforces_data.problems_solved;
+        dashboard_data.daily_solved_problem_count[last_index].spoj_solved_today= dashboard_data.daily_solved_problem_count[last_index].spoj_solved_today+parseInt(spoj_data.Problems_solved)-dashboard_data.daily_solved_problem_count[last_index].spoj_total_solved;
+        dashboard_data.daily_solved_problem_count[last_index].spoj_total_solved=parseInt(spoj_data.Problems_solved);
+        dashboard_data.daily_solved_problem_count[last_index].leetcode_solved_today= dashboard_data.daily_solved_problem_count[last_index].leetcode_solved_today+leetcode_data.totalSolved-dashboard_data.daily_solved_problem_count[last_index].leetcode_total_solved; 
+        dashboard_data.daily_solved_problem_count[last_index].leetcode_total_solved=leetcode_data.totalSolved; 
+        dashboard_data.daily_solved_problem_count[last_index].leetcode_rating=parseInt(leetcoderating)? parseInt(leetcoderating):0;
+        dashboard_data.daily_solved_problem_count[last_index].codechef_rating=parseInt(codechef_data.currentRating)? parseInt(codechef_data.currentRating):0;
+        dashboard_data.daily_solved_problem_count[last_index].codeforces_rating=parseInt(codeforces_data.rating)? parseInt(codeforces_data.rating):0;
                 // }
                 // else
                 // {
@@ -495,7 +495,7 @@ class Process_scores{
                     codechef_total_solved : solved_data[0].codechef_solved.length,
                     hackerrank_solved_today : solved_data[0].hackerrank_solved.length-dashboard_data.daily_solved_problem_count[last_index].hackerrank_total_solved,
                     hackerrank_total_solved : solved_data[0].hackerrank_solved.length,
-                    codeforces_solved_today :codeforces_data.problems_solved-dashboard_data.daily_solved_problem_count[last_index].codeforces_total_solved,
+                    codeforces_solved_today :parseInt(codeforces_data.problems_solved)-parseInt(dashboard_data.daily_solved_problem_count[last_index].codeforces_total_solved),
                     codeforces_total_solved : codeforces_data.problems_solved,
                     spoj_solved_today : parseInt(spoj_data.Problems_solved)-dashboard_data.daily_solved_problem_count[last_index].spoj_total_solved,
                     spoj_total_solved : parseInt(spoj_data.Problems_solved),
