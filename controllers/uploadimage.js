@@ -8,6 +8,9 @@ const uploadFile = async (req, res) => {
   try {
     const upload = await Upload.uploadFile(req.file.path);
     // console.log(upload);
+    if(!upload) {
+      return res.status(404).send({ success: false, msg: "File not uploaded" });
+    }
 
     const update_image = await Dashboard.findOneAndUpdate(
       { roll_no: rollno },
