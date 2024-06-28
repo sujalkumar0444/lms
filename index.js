@@ -50,6 +50,7 @@ const upcommingcontestrouter=require("./router/upcomingcontests");
 const jobsrouter=require("./router/fetchjobs");
 const dashboardrouter=require('./router/dashboard/dashboard');
 const judgerouter=require('./router/judge/judgerouter');
+const  addProblemSubmissionProgressRouter = require('./router/courseworkroutes/addProblemSubmissionProgress');
 
 // models
 const Users = require('./models/user');
@@ -90,6 +91,7 @@ app.use('/lesson/update',lessonupdaterouter);
 app.use('/user/courses',is_valid_user,usercourserouter);
 app.use('/select/course',is_valid_user,courseselectrouter);
 app.use('/add/progress',is_valid_user,courseaddprogressrouter);
+app.use('/add/addProblemSubmissionProgress',addProblemSubmissionProgressRouter);
 app.use('/add/submission',addsubmissionrouter);
 app.use('/fetch/submission',is_valid_user,fetchsubmissionrouter);
 app.use('/fetch/progress',is_valid_user,coursefetchprogressrouter);
@@ -111,7 +113,7 @@ app.use("/update/resume", is_valid_user, uploadresumerouter);
 app.use("/upload/certificate", is_valid_user, uploadCertificatesRouter);
 app.use("/contests",is_valid_user, upcommingcontestrouter);
 app.use("/jobs",is_valid_user, jobsrouter);
-app.use("/judge",judgerouter);
+app.use("/judge",is_valid_user,judgerouter);
 
 
 app.get("/updateall",async(req,res)=>{
