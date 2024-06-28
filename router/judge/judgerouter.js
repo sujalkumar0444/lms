@@ -88,10 +88,9 @@ async function handleMultipleTestCases(req, res, type) {
 
             }
             const allAccepted = finalresponse.every(item => item.status.description === "Accepted");
-            if (type == "hidden_test_cases") {
+            if (req.body.roll_no!=req.roll_no && type == "hidden_test_cases") {
                 let { moduleId, courseid, lessonPoints, lessonId } = req.body;
                 console.log(moduleId, courseid, lessonPoints, lessonId);
-                if(req.body.roll_no!=req.roll_no)res.send("roll no not matched");
                 if (allAccepted) {
                     await addsubbmission(req.roll_no, problem_id, new Date(), getLanguage(language_id), Base64Converter.decodeBase64ToUtf8(source_code), "accepted");
                     await addDone(req.roll_no, moduleId, courseid, lessonPoints, lessonId);
