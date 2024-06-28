@@ -3,8 +3,8 @@ const Submission = require("../../models/submissions");
 
 router.post('/', async (req, res) => {
     try {
-        const { problem_id,submission_time,lang, submission_code, submission_status } = req.body;
-        const roll_no=req.roll_no;
+        const {roll_no, problem_id,submission_time,lang, submission_code, submission_status } = req.body;
+        // const roll_no=req.roll_no;
         let submission = await Submission.findOne({ problem_id });
     if (!submission) {
       submission = new Submission({ problem_id, users: [] });

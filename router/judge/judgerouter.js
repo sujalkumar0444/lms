@@ -61,7 +61,7 @@ async function handleMultipleTestCases(req,res,type) {
                     let res = await getSubmissionStatus(item.token);
                     problemsStatus.push(res);
                 } catch (error) {
-                    console.error(error);
+                    res.status(504).send(error);
                     // Handle error as needed
                 }
             }
@@ -84,11 +84,11 @@ async function handleMultipleTestCases(req,res,type) {
                     }
                 });
             }
-            res.send (finalresponse);    
+            res.send(finalresponse);    
         })
         .catch((error) => {
             console.log(error);
-            res.send(error);
+            res.status(504).send(error.message);
         });
 }
 
@@ -141,14 +141,22 @@ router.post("/customtestcases", async (req, res) => {
 
 router.post("/runcode", async (req, res) => {
     // res.json({ message: "run code" });
-    handleMultipleTestCases(req,res,"sample_test_cases");
+    try{
+        handleMultipleTestCases(req,res,"sample_test_cases");    
+    }catch(error){
+        res.status(504).send(error.message);
+    }
 });
 
 
 
 
 router.post("/submitcode", async (req, res) => {
-    handleMultipleTestCases(req,res,"hidden_test_cases");
+    try{
+        handleMultipleTestCases(req,res,"hidden_test_cases");
+    }catch(error){
+        res.status(504).send(error.message);
+    }
 });
 
 
