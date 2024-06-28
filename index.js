@@ -19,6 +19,7 @@ const regisrationrouter = require('./router/registration/register');
 const leaderboardsortedrouter = require('./router/leaderboardroutes/sortedboard');
 //added route for fetching course details
 const addsubmissionrouter=require('./router/courseworkroutes/addsubmission');
+const fetchsubmissionrouter=require('./router/courseworkroutes/fetchsubmission');
 const lessonpreviewrouter=require('./router/courseworkroutes/lessonpreview');
 const coursedeleterouter=require('./router/courseworkroutes/coursedelete');
 const lessondeleterouter=require('./router/courseworkroutes/lessondelete');
@@ -92,6 +93,7 @@ app.use('/select/course',is_valid_user,courseselectrouter);
 app.use('/add/progress',is_valid_user,courseaddprogressrouter);
 app.use('/add/addProblemSubmissionProgress',addProblemSubmissionProgressRouter);
 app.use('/add/submission',addsubmissionrouter);
+app.use('/fetch/submission',is_valid_user,fetchsubmissionrouter);
 app.use('/fetch/progress',is_valid_user,coursefetchprogressrouter);
 app.use('/course/leaderboard',is_valid_user,courseleaderboardrouter);
 app.use('/reorder',reorderrouter);
