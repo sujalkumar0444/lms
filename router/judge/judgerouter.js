@@ -8,7 +8,12 @@ const { SERVER_URL } = require("../../config");
 async function getSubmissionStatus(token) {
     let a = 0;
     while (true) {
-        let status = await axios.get(`${JUDGE0_URL}/submissions/${token}?base64_encoded=true`);
+        let status = await axios.get(`${JUDGE0_URL}/submissions/${token}?base64_encoded=true`,{
+            headers: {
+            'x-rapidapi-key': '6fd4b0981fmshb830aa200fe03afp18fa14jsnd046d78cf350',
+            'x-rapidapi-host': 'judge0-ce.p.rapidapi.com'
+  }
+        });
         console.log(a++);
         // console.log(status.data); // Assuming you want to log the status
         if (status.data.status.description != "In Queue" && status.data.status.description != "Processing") {
@@ -48,7 +53,9 @@ async function handleMultipleTestCases(req, res, type) {
         maxBodyLength: Infinity,
         url: `${JUDGE0_URL}/submissions/batch?base64_encoded=true`,
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+                'x-rapidapi-key': '6fd4b0981fmshb830aa200fe03afp18fa14jsnd046d78cf350',
+                'x-rapidapi-host': 'judge0-ce.p.rapidapi.com'
         },
         data: data
     };
@@ -188,7 +195,9 @@ router.post("/customtestcases", async (req, res) => {
         maxBodyLength: Infinity,
         url: `${JUDGE0_URL}/submissions/?base64_encoded=true&wait=false`,
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'x-rapidapi-key': '6fd4b0981fmshb830aa200fe03afp18fa14jsnd046d78cf350',
+                'x-rapidapi-host': 'judge0-ce.p.rapidapi.com'
         },
         data: data
     };
@@ -200,7 +209,12 @@ router.post("/customtestcases", async (req, res) => {
             let token = tokenobj.token;
             let a = 0;
             while (true) {
-                let status = await axios.get(`${JUDGE0_URL}/submissions/${token}?base64_encoded=true`);
+                let status = await axios.get(`${JUDGE0_URL}/submissions/${token}?base64_encoded=true`,{
+                    headers: {
+                        'x-rapidapi-key': '6fd4b0981fmshb830aa200fe03afp18fa14jsnd046d78cf350',
+                'x-rapidapi-host': 'judge0-ce.p.rapidapi.com'
+                    }
+                });
                 console.log(a++);
                 console.log(status.data); // Assuming you want to log the status
                 if (status.data.status.description != "In Queue" && status.data.status.description != "Processing") {

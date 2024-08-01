@@ -1,13 +1,21 @@
 const express = require("express");
 const router = express.Router();
 const nodemailer = require("nodemailer");
+const user = require("../../models/user");
 
 router.get("/", async (req, res) => {
   res.send("Send an otp to user's email address");
 });
 
-function sendEmail(userData) {
-  const { email, OTP } = userData;
+async function sendEmail(rollno) {
+  
+  let user_data = await user.findOne({ roll_no : rollno });
+  console.log(user_data);
+  if(!user_data)
+  {
+    return res.status(500).send("Invalid RollNO , No user found");
+  }
+  const OTP = (Math.floor(100000 + Math.random() * 900000));
   return new Promise((resolve, reject) => {
     var transporter = nodemailer.createTransport({
       service: "gmail",
@@ -19,7 +27,7 @@ function sendEmail(userData) {
 
     const mail_configs = {
       from: process.env.MY_EMAIL,
-      to: email,
+      to: user_data.email,
       subject: "PASSWORD RECOVERY",
       html: `<!DOCTYPE html>
   <html lang="en">
@@ -57,8 +65,9 @@ function sendEmail(userData) {
 }
 
 router.post("/", async (req, res) => {
-  const { email, OTP } = req.body;
-  sendEmail({ email, OTP })
+  const rollno = req.body.rollno;
+  // console.log(req.body);
+  sendEmail(rollno)
     .then((response) => res.send(response.message))
     .catch((error) => res.status(500).send(error.message));
 });
