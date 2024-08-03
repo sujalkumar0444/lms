@@ -51,6 +51,7 @@ const jobsrouter=require("./router/fetchjobs");
 const dashboardrouter=require('./router/dashboard/dashboard');
 const judgerouter=require('./router/judge/judgerouter');
 const  addProblemSubmissionProgressRouter = require('./router/courseworkroutes/addProblemSubmissionProgress');
+const authenticateAdminrouter=  require("./router/registration/authenticateAdmin");
 
 // models
 const Users = require('./models/user');
@@ -99,6 +100,7 @@ app.use('/course/leaderboard',is_valid_user,courseleaderboardrouter);
 app.use('/reorder',reorderrouter);
 app.use("/register", regisrationrouter);
 app.use("/authenticate", authenticaterouter);
+app.use("/authenticateAdmin", authenticateAdminrouter);
 app.use("/sendotp", sendotprouter);
 app.use("/getcreds", getcredentialsrouter);
 app.use("/update/email",is_valid_user, updateemailrouter);
