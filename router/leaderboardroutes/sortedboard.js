@@ -17,6 +17,8 @@ router.get("/",async(req,res)=>{
         return {
             name:row.user_name,
             roll_no:row.roll_no,
+            branch:row.branch,
+            email:row.email,
             leetcode: row.lc_leaderboard_score,
             codeforces:row.cf_leaderboard_score,
             codechef:row.cc_leaderboard_score,

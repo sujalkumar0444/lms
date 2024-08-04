@@ -437,8 +437,8 @@ class Process_scores{
             // console.log(dashboard_data.daily_solved_problem_count[last_index].date);
             if (moment(dashboard_data.daily_solved_problem_count[last_index].date).isAfter(today, 'day')) {
 
-        dashboard_data.daily_solved_problem_count[last_index].codechef_total_solved=solved_data[0].codechef_solved.length;
         dashboard_data.daily_solved_problem_count[last_index].codechef_solved_today=dashboard_data.daily_solved_problem_count[last_index].codechef_solved_today+solved_data[0].codechef_solved.length-dashboard_data.daily_solved_problem_count[last_index].codechef_total_solved; 
+        dashboard_data.daily_solved_problem_count[last_index].codechef_total_solved=solved_data[0].codechef_solved.length;
         dashboard_data.daily_solved_problem_count[last_index].hackerrank_solved_today= dashboard_data.daily_solved_problem_count[last_index].hackerrank_solved_today+solved_data[0].hackerrank_solved.length-dashboard_data.daily_solved_problem_count[last_index].hackerrank_total_solved; 
         dashboard_data.daily_solved_problem_count[last_index].hackerrank_total_solved=solved_data[0].hackerrank_solved.length; 
         dashboard_data.daily_solved_problem_count[last_index].codeforces_solved_today= parseInt(dashboard_data.daily_solved_problem_count[last_index].codeforces_solved_today)+parseInt(codeforces_data.problems_solved)-parseInt(dashboard_data.daily_solved_problem_count[last_index].codeforces_total_solved);

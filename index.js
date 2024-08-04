@@ -58,7 +58,7 @@ const authenticateAdminrouter=  require("./router/registration/authenticateAdmin
 // models
 const Users = require('./models/user');
 const mainf = require('./modules/sites/scoresupdataion');
-cron.schedule('0 2 * * *', async () => {
+cron.schedule('0 11 * * *', async () => {
   // let mainf = require("./modules/sites/scoresupdataion");
   let allusers = await Users.find({});
   

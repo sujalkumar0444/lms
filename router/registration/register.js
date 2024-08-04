@@ -27,6 +27,7 @@ function is_profile_available(req, res, next) {
     body.hackerrank &&
     body.leetcode &&
     body.spoj &&
+    body.branch &&
     body.graduation_year 
   ) {
     next();
@@ -90,6 +91,8 @@ router.post("/", is_profile_available, is_valid_profile, async (req, res) => {
       user_name: body.username,
       graduation_year:body.graduation_year,
       roll_no: body.rollno,
+      branch: body.branch,
+      email: body.email,
       lc_leaderboard_score: 0,
       cf_leaderboard_score: 0,
       cc_leaderboard_score: 0,
@@ -101,6 +104,7 @@ router.post("/", is_profile_available, is_valid_profile, async (req, res) => {
     let user_doc = await User.collection.insertOne({
       roll_no: body.rollno,
       name: body.name,
+      branch : body.branch,
       password: EncryptedPass,
       email: body.email,
       username: body.username,

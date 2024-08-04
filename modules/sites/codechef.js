@@ -51,13 +51,13 @@ class Codechefclass {
                 success: true,
                 profile: document.querySelector('.user-details-container').children[0].children[0].src,
                 name: document.querySelector('.user-details-container').children[0].children[1].textContent,
-                currentRating: parseInt(document.querySelector(".rating-number").textContent),
-                highestRating: parseInt(document.querySelector(".rating-number").parentNode.children[4].textContent.split('Rating')[1]),
+                currentRating: parseInt(document.querySelector(".rating-number")?.textContent) || 0,
+                highestRating: parseInt(document.querySelector(".rating-number")?.parentNode.children[4].textContent.split('Rating')[1]) || 0,
                 countryFlag: document.querySelector('.user-country-flag').src,
                 countryName: document.querySelector('.user-country-name').textContent,
-                globalRank: parseInt(document.querySelector('.rating-ranks').children[0].children[0].children[0].children[0].innerHTML),
-                countryRank: parseInt(document.querySelector('.rating-ranks').children[0].children[1].children[0].children[0].innerHTML),
-                stars: document.querySelector('.rating').textContent || "unrated",
+                globalRank: parseInt(document.querySelector('.rating-ranks')?.children[0].children[0].children[0].children[0].innerHTML) || 0,
+                countryRank: parseInt(document.querySelector('.rating-ranks')?.children[0].children[1].children[0].children[0].innerHTML) || 0,
+                stars: document.querySelector('.rating')?.textContent || "unrated",
                 problemsSolved: parseInt(document.querySelector("body > main > div > div > div > div > div > section.rating-data-section.problems-solved > h3:last-child")?.textContent.slice(document.querySelector("body > main > div > div > div > div > div > section.rating-data-section.problems-solved > h3:last-child")?.textContent.indexOf(": ") + 2), 10),
                 
                
