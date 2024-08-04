@@ -2,6 +2,7 @@ const express = require('express')
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const cron = require('node-cron');
 //dbconnect
 const {databaseconnect}=require("./dbconfig");
 
@@ -57,7 +58,23 @@ const authenticateAdminrouter=  require("./router/registration/authenticateAdmin
 // models
 const Users = require('./models/user');
 const mainf = require('./modules/sites/scoresupdataion');
-
+cron.schedule('0 2 * * *', async () => {
+  // let mainf = require("./modules/sites/scoresupdataion");
+  let allusers = await Users.find({});
+  
+  for (let user of allusers) {
+    let body = {
+      rollno: user.roll_no,
+      codechef: user.codechef_handle,
+      leetcode: user.leetcode_handle,
+      codeforces: user.codeforces_handle,
+      spoj: user.spoj_handle,
+      hackerrank: user.hackerrank_handle
+    };
+    console.log(body);
+    await mainf(body);
+  }
+});
 // dbconnection
 databaseconnect();
 
