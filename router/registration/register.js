@@ -3,7 +3,6 @@ const router = express.Router();
 const CryptoJS = require("crypto-js");
 const is_valid_profile = require("../../middlewares/is_valid_profile");
 require("dotenv").config();
-// const jwt = require("jsonwebtoken");
 
 // models
 const solved_model = require("../../models/solved_problems");
@@ -30,7 +29,6 @@ function is_profile_available(req, res, next) {
     body.spoj &&
     body.graduation_year 
   ) {
-    // console.log(body);
     next();
   } else {
     res.status(400).send("Please fill all the details");
@@ -42,6 +40,9 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", is_profile_available, is_valid_profile, async (req, res) => {
+  const session = await solved_model.startSession(); // Start a session for the transaction
+  session.startTransaction(); // Start the transaction
+  
   let body = req.body;
   try {
     let roll_no = body.rollno;
@@ -55,9 +56,6 @@ router.post("/", is_profile_available, is_valid_profile, async (req, res) => {
       process.env.secretKey
     ).toString();
 
-   
-    // console.log(body.phone_number);
-
     let solved_doc = await solved_model.collection.insertOne({
       roll_no: body.rollno,
       codechef_last_refreshed: new Date(0),
@@ -68,7 +66,8 @@ router.post("/", is_profile_available, is_valid_profile, async (req, res) => {
       hackerrank_solved: [],
       spoj_last_refreshed: new Date(0),
       spoj_solved: [],
-    });
+    }, { session }); // Pass the session to each insert operation
+
     let tracked_scores_doc = await tracked_scores_model.collection.insertOne({
       roll_no: body.rollno,
       lc_solved: 0,
@@ -85,7 +84,8 @@ router.post("/", is_profile_available, is_valid_profile, async (req, res) => {
       hr_leaderboard_score: 0,
       spoj_leaderboard_score: 0,
       total_leaderboard_score: 0,
-    });
+    }, { session });
+
     let leaderboard_doc = await leaderboard_model.collection.insertOne({
       user_name: body.username,
       graduation_year:body.graduation_year,
@@ -96,8 +96,8 @@ router.post("/", is_profile_available, is_valid_profile, async (req, res) => {
       hr_leaderboard_score: 0,
       spoj_leaderboard_score: 0,
       total_leaderboard_score: 0,
-    });
-    
+    }, { session });
+
     let user_doc = await User.collection.insertOne({
       roll_no: body.rollno,
       name: body.name,
@@ -114,8 +114,8 @@ router.post("/", is_profile_available, is_valid_profile, async (req, res) => {
       leaderboard_ref: leaderboard_doc.insertedId,
       credential_ref: tracked_scores_doc.insertedId,
       problems_solved: solved_doc.insertedId,
-    });
-    
+    }, { session });
+
     let dashboard_doc = await dashboard_model.collection.insertOne({
       roll_no: body.rollno,
       name:body.name||"",
@@ -139,15 +139,15 @@ router.post("/", is_profile_available, is_valid_profile, async (req, res) => {
       github: body.github || "",
       daily_solved_problem_count :[],
       certificates:[]
+    }, { session });
 
-    });
-    // console.log(user_doc);
-    // console.log(solved_doc);
-    // console.log(tracked_scores_doc);
-    // console.log(leaderboard_doc);
-    // console.log(dashboard_doc);
+    await session.commitTransaction(); // Commit the transaction
+    session.endSession(); // End the session
+
     res.send("User Created");
   } catch (err) {
+    await session.abortTransaction(); // Rollback the transaction if any error occurs
+    session.endSession(); // End the session
     console.log(err);
     res.status(500).json(err.message);
   }

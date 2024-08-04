@@ -399,7 +399,7 @@ class Process_scores{
                 }
             });
         
-            leetcoderating = response.data.data.userContestRanking.rating;
+            leetcoderating = response.data.data.userContestRanking?.rating || 0;
             tracked_scores_data.lc_rating=leetcoderating;
             
         } catch (error) {

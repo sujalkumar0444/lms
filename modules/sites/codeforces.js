@@ -82,7 +82,7 @@ class Codeforcesclass{
       profilename:document.querySelector('.main-info > h1:nth-child(2) > a:nth-child(1)').innerHTML,
       stage:document.querySelector('.user-rank > span:nth-child(1)').innerHTML,
       rating:document.querySelector('.info > ul:nth-child(2) > li:nth-child(1) > span:nth-child(2)').innerHTML,
-      max_rating:document.querySelector('span.smaller > span:nth-child(2)').innerHTML,  
+      max_rating:document.querySelector('span.smaller > span:nth-child(2)')?.innerHTML || 0,  
       problems_solved:document.querySelector("html body div#body div div#pageContent.content-with-sidebar div._UserActivityFrame_frame div.roundbox.userActivityRoundBox.borderTopRound.borderBottomRound div._UserActivityFrame_footer div._UserActivityFrame_countersRow div._UserActivityFrame_counter div._UserActivityFrame_counterValue").innerHTML.split(" ")[0]
     }
   }

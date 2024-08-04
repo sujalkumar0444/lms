@@ -7,7 +7,7 @@ const moment = require('moment');
 class Spojclass{ 
     constructor(handle){
         this.site = "Spoj";
-        this.handle = handle;
+        this.handle = handle.replace(/['"]/g, '');
     }
      // Define your list of request failure status codes
     async  is_valid_handle() {
@@ -43,7 +43,7 @@ class Spojclass{
         const dom = new JSDOM(response);
         const document = dom.window.document;
         return {
-            "user_name": document.querySelector('#user-profile-left > h3:nth-child(2)').innerHTML,
+            "user_name": this.handle,
             "World_Rank":document.querySelector('#user-profile-left > p:nth-child(6)').innerHTML.slice(-17),
             "Problems_solved":document.querySelector('.dl-horizontal > dd:nth-child(2)').innerHTML,
         }
@@ -57,7 +57,8 @@ class Spojclass{
         let handle = this.handle;
         const baseUrl = `https://www.spoj.com/status/${handle}/all/start=`;
         const results = [];
-
+        console.log(handle);
+        console.log("..........................................................................");
         let start = 0;
 
         while (true) {
